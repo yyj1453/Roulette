@@ -27,8 +27,9 @@ public class CheckMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_menu);
 
-        Vector<String> selectedMenu = new Vector<String>();
+        Vector<String> selectedMenu = new Vector<String>();                                  // 고른 메뉴를 ResultActivity로 보낼때 그릇이 될 벡터
 
+        // 체크박스 변수화
         CheckBox burgerkingCheck = (CheckBox) findViewById(R.id.checkBox_check_burgerking);
         CheckBox gunaeCheck = (CheckBox) findViewById(R.id.checkBox_check_gunaesikdang);
         CheckBox haewallCheck = (CheckBox) findViewById(R.id.checkBox_check_haewall);
@@ -39,10 +40,14 @@ public class CheckMenuActivity extends AppCompatActivity {
         CheckBox naemyunCheck = (CheckBox) findViewById(R.id.checkBox_check_naemyun);
         Button confirmButton = (Button) findViewById(R.id.button_check_confirm);
 
+        // 확인 버튼 눌렀을 때
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent check_to_Result = new Intent(getApplicationContext(),ResultActivity.class);
+                Intent check_to_Result = new Intent(getApplicationContext(),ResultActivity.class);          // ResultActivity로 넘어갈 인텐트 생성
 
+                selectedMenu.clear();                                                                       // 기존에 선택된 메뉴가 누적되지 않도록 한번 리셋
+
+                // 고른메뉴 벡터에 추가
                 if(burgerkingCheck.isChecked()) { selectedMenu.add(burgerkingCheck.getText().toString()); }
                 if(gunaeCheck.isChecked()) { selectedMenu.add(gunaeCheck.getText().toString()); }
                 if(haewallCheck.isChecked()) { selectedMenu.add(haewallCheck.getText().toString()); }
@@ -52,12 +57,12 @@ public class CheckMenuActivity extends AppCompatActivity {
                 if(donkachuCheck.isChecked()) { selectedMenu.add(donkachuCheck.getText().toString()); }
                 if(naemyunCheck.isChecked()) { selectedMenu.add(naemyunCheck.getText().toString()); }
 
-                String[] selectedMenuArr = selectedMenu.toArray(new String[selectedMenu.size()]);
+                String[] selectedMenuArr = selectedMenu.toArray(new String[selectedMenu.size()]);            // 고른 메뉴가 담긴 벡터 문자배열화
 
-                check_to_Result.putExtra("selectedMenu", selectedMenuArr);
+                check_to_Result.putExtra("selectedMenu", selectedMenuArr);                             // ResultActivity로 넘어가면서 문자배열 보내기
 
-                if(selectedMenuArr.length > 0) {
-                    startActivity(check_to_Result);
+                if(selectedMenuArr.length > 0) {               // 1개 이상의 메뉴르 골랐을 경우
+                    startActivity(check_to_Result);            // check_to_Result 인테트를 싱행시키면서 ResultActivity로 넘어감
                 } else {
                     Toast.makeText(CheckMenuActivity.this, "아무것도 안골랐잖아;;", Toast.LENGTH_LONG).show();
                 }

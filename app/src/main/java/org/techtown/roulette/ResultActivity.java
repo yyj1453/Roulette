@@ -26,23 +26,25 @@ import java.util.Vector;
 
 
 public class ResultActivity extends AppCompatActivity {
-public static int ID = 0;
-
+public static int ID = 0;                                          // 랜덤 돌릴 변수 생성
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        Intent intent = getIntent();
-        String [] data = intent.getStringArrayExtra("selectedMenu");
 
-        ListView listView = findViewById(R.id.candidateList);
-        List<String> list = new ArrayList<>();
-        for(int i = 0; i < data.length; i++) {
+        Intent intent = getIntent();                                                     // 받아오는 인텐트 생성
+        String [] data = intent.getStringArrayExtra("selectedMenu");               // CheckMenuActivity에서 고른 메뉴 받아서 data 문자배열에 저장
+
+        ListView listView = findViewById(R.id.candidateList);                            // 리스트뷰 변수화
+        // data 문자열을 굳이 리스트에 옮겨야하나...?
+        /*
+        List<String> list = new ArrayList<>();                                           // 리스트 변수 생성
+        for(int i = 0; i < data.length; i++) {                                           // 리스트에 data 문자 배열 저장
             list.add(data[i]);
         }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,list){
+        */
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,data){         // data를 리스트뷰에 추가
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView)view.findViewById(android.R.id.text1);
